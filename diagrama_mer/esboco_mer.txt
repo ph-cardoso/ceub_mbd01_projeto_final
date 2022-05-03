@@ -1,0 +1,56 @@
+Tabelas:
+- TB_PACIENTE
+	- id_paciente INT
+	- cpf VARCHAR(11)
+	- nome VARCHAR(50)
+	- telefone VARCHAR(11)
+	- email VARCHAR(50)
+	- dt_nascimento DATE
+
+- TB_EXAME
+	- id INT
+	- nome VARCHAR(50)
+	- descricao VARCHAR(1000)
+	- valor DECIMAL(10,2)
+	
+
+- TB_REGISTRO_EXAME
+	- id_registro INT
+	- id_paciente INT
+	- id_exame INT
+	- id_convenio INT
+	- dthora_realizacao DATETIME
+
+- TB_CONVENIO
+	- id_convenio INT
+	- nome VARCHAR(50)
+	- cnpj VARCHAR(14)
+	- taxa_coparticipacao DECIMAL(4,3)
+
+- TB_MEDICO
+	- id_medico INT
+	- nome VARCHAR(50)
+	- crm VARCHAR(9)
+	- telefone VARCHAR(11)
+	- email VARCHAR(50)
+
+- TB_ESPECIALIDADE
+	- id INT
+	- nome VARCHAR(50)
+
+- TB_MEDICO_ESPECIALIDADE
+	- id INT
+	- id_medico INTEGER
+	- id_especialidade INTEGER
+	
+- TB_DEBITO
+	- id_debito INT
+	- id_tipo INT
+	- id_registro INT
+	- valor DECIMAL(10,2)
+	- dthora_registro DATETIME
+	- dthora_pagamento DATETIME
+
+- TB_TIPO_DEBITO
+	- id_tipo INT
+	- nome VARCHAR(20)

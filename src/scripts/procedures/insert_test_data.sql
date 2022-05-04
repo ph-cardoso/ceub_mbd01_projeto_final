@@ -1,18 +1,13 @@
-DROP PROCEDURE IF EXISTS `paciente_test_data`;
+DROP PROCEDURE IF EXISTS `insert_test_data`;
 
 DELIMITER //
 
-CREATE PROCEDURE `paciente_test_data` ()
+CREATE PROCEDURE `insert_test_data` ()
 
 BEGIN
-	SET `SQL_SAFE_UPDATES` = 0;
-    
-	DELETE FROM `TB_PACIENTE`;
-    
-    ALTER TABLE `TB_PACIENTE` AUTO_INCREMENT = 1;
-
-	INSERT INTO `TB_PACIENTE` 
-	(`nome`,`cpf`,`dt_nascimento`,`email`,`telefone`) 
+    -- TB_PACIENTE
+	INSERT INTO `TB_PACIENTE`
+	(`nome`,`cpf`,`dt_nascimento`,`email`,`telefone`)
 	VALUES
 	('Fabiana Silvana Larissa Lima','97640286670',STR_TO_DATE('17-02-1959','%d-%m-%Y'),'fabiana-lima78@bb.com.br','64984916824'),
 	('Caio Julio da Rocha','25198435783',STR_TO_DATE('24-04-1998','%d-%m-%Y'),'caio.julio.darocha@cfaraujo.eng.br','82983875690'),
@@ -34,8 +29,31 @@ BEGIN
 	('Caio Porto','42034877810',STR_TO_DATE('02-05-1950','%d-%m-%Y'),'caio_porto@alphagraphics.com.br','31986639825'),
 	('Luiza Letícia Souza','30506005356',STR_TO_DATE('22-02-1956','%d-%m-%Y'),'luiza_leticia_souza@publifix.com.br','85982946300'),
 	('Thiago Manoel Oliver Barbosa', '73141289441',STR_TO_DATE('09-03-1993','%d-%m-%Y'),'thiago_manoel_barbosa@centerdiesel.com.br','35984057475');
-	
-    SET `SQL_SAFE_UPDATES` = 1;
+
+    -- TB_ESPECIALIDADE
+    INSERT INTO `TB_ESPECIALIDADE`
+	(`nome`)
+	VALUES
+	('Cardiologia'),
+	('Angiologia'),
+	('Dermatologia'),
+	('Endocrinologia'),
+	('Ginecologia'),
+	('Urologia'),
+	('Neurologia'),
+	('Oftalmologia'),
+	('Pediatria');
+
+    -- TB_CONVENIO
+    INSERT INTO `TB_CONVENIO`
+	(`nome`,`cnpj`,`taxa_coparticipacao`)
+	VALUES
+	('Amil', '07517040000154', 0.25),
+	('Unimed', '80590363000163', 0.305),
+	('Cassi', '07530656000165', 0.15),
+	('Bradesco', '46305732000190', 0.42),
+	('Sulamerica', '21503041000170', 0.65),
+	('PagBank', '12260171000139', 0.355);
 END//
 
 DELIMITER ;

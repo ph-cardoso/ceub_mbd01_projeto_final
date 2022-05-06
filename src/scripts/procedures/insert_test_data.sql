@@ -54,6 +54,112 @@ BEGIN
 	('Bradesco', '46305732000190', 0.42),
 	('Sulamerica', '21503041000170', 0.65),
 	('PagBank', '12260171000139', 0.355);
+
+    -- TB_TIPO_DEBITO
+    INSERT INTO `TB_TIPO_DEBITO`
+	(`nome`)
+	VALUES
+	('Pessoa Física'),
+	('Convenio');
+
+    -- TB_MEDICO
+    INSERT INTO `TB_MEDICO`
+	(`nome`,`crm`,`email`,`telefone`)
+	VALUES
+	("Eduardo Lucas Nunes","10413-PA","eduardo-nunes90@distribuidorapetfarm.com.br","68999159147"),
+	("Giovanna Maria Castro","23153-PE","giovannamariacastro@sunrise.com.br","92984650591"),
+	("Diego Vicente Márcio Rezende","154092-SP","diego_vicente_rezende@alway.com.br","69982782938"),
+	("Melissa Silvana Ramos","103094-RJ","melissa_ramos@agenciaph.com","86999113876"),
+	("Raul Luan Pinto","11831-SP","raul_pinto@plaman.com.br","84996986315"),
+	("Raul Lima","10208-BA","raul_lima@yahoo.de","79988543256"),
+	("Marcos Samuel Francisco Almada","12487-ES","marcossamuelalmada@yahoo.com.ar","83983605231"),
+	("Benedita Sabrina Beatriz Ribeiro","209595-SP","benedita.sabrina.ribeiro@dedicasa.com.br","51999548803"),
+	("Isabelle Rafaela Antônia Nogueira","2702-AC","isabelle_nogueira@iesa.com.br","84989774817"),
+	("Ayla Stella Alícia Araújo","41090-RS","ayla.stella.araujo@mega-vale.com","83985329663");
+
+    -- TB_MEDICO_ESPECIALIDADE
+    INSERT INTO `TB_MEDICO_ESPECIALIDADE`
+    (`id_medico`,`id_especialidade`)
+    VALUES
+    (1,1),
+    (1,2),
+    (2,4),
+    (3,5),
+    (4,5),
+    (4,6),
+    (5,5),
+    (5,7),
+    (6,8),
+    (7,9),
+    (7,2),
+    (8,4),
+    (8,7),
+    (9,1),
+    (9,5),
+    (9,3);
+
+    -- TB_EXAME
+    INSERT INTO `TB_EXAME`
+	(`nome`,`valor`)
+	VALUES
+	('Hemograma', 210.00),
+	('Colesterol', 150.75),
+	('Ureia', 128.90),
+	('Papanicolau', 300.00),
+	('Exame de Urina', 280.45),
+	('Exame de Fezes', 230.89),
+	('Glicemia', 199.21),
+	('PCR', 380.80),
+	('VHS', 310.00),
+	('TGO', 267.80),
+	('TGP', 246.00),
+	('Ecocardiograma', 212.89),
+	('Espirometria', 600.00);
+
+	-- TB_REGISTRO_EXAME
+    INSERT INTO `TB_REGISTRO_EXAME`
+	(`id_paciente`,`id_exame`,`id_medico`,`id_convenio`,`dthora_realizacao`)
+	VALUES
+	(1,1,3,null,STR_TO_DATE('20/03/2020 10:00','%d/%m/%Y %H:%i')),
+	(1,2,4,2,STR_TO_DATE('21/03/2020 11:00','%d/%m/%Y %H:%i')),
+	(2,1,10,1,STR_TO_DATE('22/03/2020 12:30','%d/%m/%Y %H:%i')),
+	(2,3,1,3,STR_TO_DATE('23/03/2020 10:00','%d/%m/%Y %H:%i')),
+	(20,7,2,4,STR_TO_DATE('23/04/2020 09:00','%d/%m/%Y %H:%i')),
+	(3,4,4,4,STR_TO_DATE('24/04/2020 14:40','%d/%m/%Y %H:%i')),
+	(4,4,5,2,STR_TO_DATE('25/05/2020 14:00','%d/%m/%Y %H:%i')),
+	(4,5,6,1,STR_TO_DATE('26/05/2020 14:30','%d/%m/%Y %H:%i')),
+	(5,6,6,1,STR_TO_DATE('01/05/2020 15:00','%d/%m/%Y %H:%i')),
+	(5,7,7,1,STR_TO_DATE('02/05/2020 15:00','%d/%m/%Y %H:%i')),
+	(5,8,7,2,STR_TO_DATE('04/05/2020 15:30','%d/%m/%Y %H:%i')),
+	(5,6,8,3,STR_TO_DATE('10/06/2020 16:00','%d/%m/%Y %H:%i')),
+	(6,9,10,3,STR_TO_DATE('12/06/2020 16:00','%d/%m/%Y %H:%i')),
+	(6,10,9,4,STR_TO_DATE('13/06/2020 10:00','%d/%m/%Y %H:%i')),
+	(7,11,9,4,STR_TO_DATE('14/06/2020 17:00','%d/%m/%Y %H:%i')),
+	(8,12,8,5,STR_TO_DATE('26/07/2020 17:00','%d/%m/%Y %H:%i')),
+	(8,13,8,5,STR_TO_DATE('30/07/2020 17:00','%d/%m/%Y %H:%i')),
+	(8,11,5,5,STR_TO_DATE('02/07/2020 17:30','%d/%m/%Y %H:%i')),
+	(18,10,3,null,STR_TO_DATE('04/08/2020 14:00','%d/%m/%Y %H:%i')),
+	(9,6,2,null,STR_TO_DATE('05/08/2020 11:00','%d/%m/%Y %H:%i')),
+	(9,6,1,null,STR_TO_DATE('06/08/2020 11:30','%d/%m/%Y %H:%i')),
+	(19,5,1,6,STR_TO_DATE('11/09/2020 15:00','%d/%m/%Y %H:%i')),
+	(10,5,2,6,STR_TO_DATE('12/10/2020 15:00','%d/%m/%Y %H:%i')),
+	(11,4,10,6,STR_TO_DATE('07/10/2020 16:00','%d/%m/%Y %H:%i')),
+	(11,4,10,1,STR_TO_DATE('09/10/2020 09:00','%d/%m/%Y %H:%i')),
+	(17,3,10,2,STR_TO_DATE('10/10/2020 09:00','%d/%m/%Y %H:%i')),
+	(11,2,7,2,STR_TO_DATE('12/11/2020 09:30','%d/%m/%Y %H:%i')),
+	(11,10,7,4,STR_TO_DATE('06/11/2020 09:40','%d/%m/%Y %H:%i')),
+	(11,9,6,4,STR_TO_DATE('29/11/2020 10:00','%d/%m/%Y %H:%i')),
+	(11,9,6,5,STR_TO_DATE('28/12/2020 14:00','%d/%m/%Y %H:%i')),
+	(12,8,4,6,STR_TO_DATE('24/02/2021 15:00','%d/%m/%Y %H:%i')),
+	(12,8,4,null,STR_TO_DATE('02/02/2021 16:00','%d/%m/%Y %H:%i')),
+	(12,12,5,null,STR_TO_DATE('03/01/2021 16:00','%d/%m/%Y %H:%i')),
+	(12,13,8,null,STR_TO_DATE('04/03/2021 16:00','%d/%m/%Y %H:%i')),
+	(13,13,9,2,STR_TO_DATE('05/04/2021 16:00','%d/%m/%Y %H:%i')),
+	(13,12,9,null,STR_TO_DATE('07/04/2021 17:00','%d/%m/%Y %H:%i')),
+	(14,11,9,1,STR_TO_DATE('10/05/2021 17:00','%d/%m/%Y %H:%i')),
+	(14,10,10,null,STR_TO_DATE('12/07/2021 14:00','%d/%m/%Y %H:%i')),
+	(15,13,1,5,STR_TO_DATE('13/08/2021 17:00','%d/%m/%Y %H:%i')),
+	(16,5,2,null,STR_TO_DATE('16/10/2021 18:00','%d/%m/%Y %H:%i'));
 END//
 
 DELIMITER ;

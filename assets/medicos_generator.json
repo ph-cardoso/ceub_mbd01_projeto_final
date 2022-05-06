@@ -1,0 +1,72 @@
+[
+{
+    "nome": "Eduardo Lucas Nunes",
+    "crm": "10413-PA",
+    "data_nasc": "26/04/1958",
+    "email": "eduardo-nunes90@distribuidorapetfarm.com.br",
+    "celular": "68999159147"
+},
+{
+    "nome": "Giovanna Maria Castro",
+    "crm": "23153-PE",
+    "data_nasc": "01/05/1967",
+    "email": "giovannamariacastro@sunrise.com.br",
+    "celular": "92984650591"
+},
+{
+    "nome": "Diego Vicente Márcio Rezende",
+    "crm": "154092-SP",
+    "data_nasc": "07/04/1966",
+    "email": "diego_vicente_rezende@alway.com.br",
+    "celular": "69982782938"
+},
+{
+    "nome": "Melissa Silvana Ramos",
+    "crm": "103094-RJ",
+    "data_nasc": "02/03/1975",
+    "email": "melissa_ramos@agenciaph.com",
+    "celular": "86999113876"
+},
+{
+    "nome": "Raul Luan Pinto",
+    "crm": "11831-SP",
+    "data_nasc": "01/05/2000",
+    "email": "raul_pinto@plaman.com.br",
+    "celular": "84996986315"
+},
+{
+    "nome": "Raul Lima",
+    "crm": "10208-BA",
+    "data_nasc": "11/02/1975",
+    "email" : "raul_lima@yahoo.de",
+    "celular": "79988543256"
+},
+{
+    "nome": "Marcos Samuel Francisco Almada",
+    "crm": "12487-ES",
+    "data_nasc": "26/04/1951",
+    "email": "marcossamuelalmada@yahoo.com.ar",
+    "celular": "83983605231"
+},
+{
+    "nome": "Benedita Sabrina Beatriz Ribeiro",
+    "crm": "209595-SP",
+    "data_nasc": "13/02/1949",
+    "email": "benedita.sabrina.ribeiro@dedicasa.com.br",
+    "celular": "51999548803"
+},
+{
+    "nome": "Isabelle Rafaela Antônia Nogueira",
+    "crm": "2702-AC",
+    "data_nasc": "12/01/1954",
+    "email": "isabelle_nogueira@iesa.com.br",
+    "celular": "84989774817"
+},
+{
+    "nome": "Ayla Stella Alícia Araújo",
+    "crm": "41090-RS",
+    "data_nasc": "07/01/1992",
+    "email": "ayla.stella.araujo@mega-vale.com",
+    "celular": "83985329663"
+}
+]

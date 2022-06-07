@@ -4,7 +4,6 @@
 
 -- Projeto Final: Clínica Laboratorial
 -- Script de Criação
--- Last update: 04/05/2022
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- ------------------------------------------- CRIAÇÃO DO SCHEMA ---------------------------------------------------
@@ -30,7 +29,8 @@ CREATE TABLE IF NOT EXISTS `TB_PACIENTE` (
 	`email` VARCHAR(50) NOT NULL,
 	`dt_nascimento` DATE NULL,
 	PRIMARY KEY (`id_paciente`),
-	UNIQUE KEY `cpf_UNIQUE` (`cpf`));
+	UNIQUE KEY `cpf_UNIQUE` (`cpf`)
+);
 
 -- TB_CONVENIO
 DROP TABLE IF EXISTS `TB_CONVENIO`;
@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS `TB_CONVENIO` (
 	`cnpj` VARCHAR(45) NOT NULL,
 	`taxa_coparticipacao` DECIMAL(4,3) NOT NULL,
 	PRIMARY KEY (`id_convenio`),
-	UNIQUE KEY `cnpj_UNIQUE` (`cnpj`));
+	UNIQUE KEY `cnpj_UNIQUE` (`cnpj`)
+);
 
 -- TB_EXAME
 DROP TABLE IF EXISTS `TB_EXAME`;
@@ -51,7 +52,8 @@ CREATE TABLE IF NOT EXISTS `TB_EXAME` (
 	`nome` VARCHAR(50) NOT NULL,
 	`descricao` VARCHAR(1000) NULL,
 	`valor` DECIMAL(10,2) NOT NULL,
-	PRIMARY KEY (`id_exame`));
+	PRIMARY KEY (`id_exame`)
+);
 
 -- TB_MEDICO
 DROP TABLE IF EXISTS `TB_MEDICO`;
@@ -63,7 +65,8 @@ CREATE TABLE IF NOT EXISTS `TB_MEDICO` (
 	`telefone` VARCHAR(11) NOT NULL,
 	`email` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (`id_medico`),
-	UNIQUE KEY `crm_UNIQUE` (`crm`));
+	UNIQUE KEY `crm_UNIQUE` (`crm`)
+);
 
 -- TB_REGISTRO_EXAME
 DROP TABLE IF EXISTS `TB_REGISTRO_EXAME`;
@@ -75,7 +78,8 @@ CREATE TABLE IF NOT EXISTS `TB_REGISTRO_EXAME` (
 	`id_medico` INT NOT NULL,
 	`id_convenio` INT,
 	`dthora_realizacao` DATETIME NOT NULL,
-	PRIMARY KEY (`id_registro`));
+	PRIMARY KEY (`id_registro`)
+);
 
 -- TB_ESPECIALIDADE
 DROP TABLE IF EXISTS `TB_ESPECIALIDADE`;
@@ -83,7 +87,8 @@ DROP TABLE IF EXISTS `TB_ESPECIALIDADE`;
 CREATE TABLE IF NOT EXISTS `TB_ESPECIALIDADE` (
 	`id_especialidade` INT NOT NULL AUTO_INCREMENT,
 	`nome` VARCHAR(50) NOT NULL,
-	PRIMARY KEY (`id_especialidade`));
+	PRIMARY KEY (`id_especialidade`)
+);
 
 -- TB_MEDICO_ESPECIALIDADE
 DROP TABLE IF EXISTS `TB_MEDICO_ESPECIALIDADE`;
@@ -92,7 +97,8 @@ CREATE TABLE IF NOT EXISTS `TB_MEDICO_ESPECIALIDADE` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`id_medico` INT NOT NULL,
 	`id_especialidade` INT NOT NULL,
-	PRIMARY KEY (`id`));
+	PRIMARY KEY (`id`)
+);
 
 -- TB_TIPO_DEBITO
 DROP TABLE IF EXISTS `TB_TIPO_DEBITO`;
@@ -100,7 +106,8 @@ DROP TABLE IF EXISTS `TB_TIPO_DEBITO`;
 CREATE TABLE IF NOT EXISTS `TB_TIPO_DEBITO` (
 	`id_tipo` INT NOT NULL AUTO_INCREMENT,
 	`nome` VARCHAR(20) NOT NULL,
-	PRIMARY KEY (`id_tipo`));
+	PRIMARY KEY (`id_tipo`)
+);
 
 -- TB_DEBITO
 DROP TABLE IF EXISTS `TB_DEBITO`;
@@ -112,7 +119,8 @@ CREATE TABLE IF NOT EXISTS `TB_DEBITO` (
 	`valor` DECIMAL(10,2) NOT NULL,
 	`dthora_registro` DATETIME NOT NULL,
 	`dthora_pagamento` DATETIME,
-	PRIMARY KEY (`id_debito`));
+	PRIMARY KEY (`id_debito`)
+);
 
 -- -----------------------------------------------------------------------------------------------------------------
 -- --------------------------------------- CRIAÇÃO DAS FOREIGN KEYS ------------------------------------------------
@@ -144,63 +152,62 @@ ALTER TABLE `TB_DEBITO` ADD FOREIGN KEY `id_registro_idx` (`id_registro`) REFERE
 -- delete_all_data
 DROP PROCEDURE IF EXISTS `delete_all_data`;
 
-DELIMITER //
+DELIMITER $$
 
-CREATE PROCEDURE `delete_all_data` ()
-
+CREATE PROCEDURE `delete_all_data`()
 BEGIN
 	SET `SQL_SAFE_UPDATES` = 0;
 
-		-- TB_REGISTRO_EXAME
-	DELETE FROM `TB_REGISTRO_EXAME`;
-		ALTER TABLE `TB_REGISTRO_EXAME` AUTO_INCREMENT = 1;
-
-		-- TB_MEDICO_ESPECIALIDADE
-	DELETE FROM `TB_MEDICO_ESPECIALIDADE`;
-		ALTER TABLE `TB_MEDICO_ESPECIALIDADE` AUTO_INCREMENT = 1;
-
-		-- TB_ESPECIALIDADE
-	DELETE FROM `TB_ESPECIALIDADE`;
-		ALTER TABLE `TB_ESPECIALIDADE` AUTO_INCREMENT = 1;
-
-		-- TB_MEDICO
-	DELETE FROM `TB_MEDICO`;
-		ALTER TABLE `TB_MEDICO` AUTO_INCREMENT = 1;
-
-		-- TB_DEBITO
+	-- TB_DEBITO
 	DELETE FROM `TB_DEBITO`;
-		ALTER TABLE `TB_DEBITO` AUTO_INCREMENT = 1;
+	ALTER TABLE `TB_DEBITO` AUTO_INCREMENT = 1;
 
-		-- TB_TIPO_DEBITO
+	-- TB_TIPO_DEBITO
 	DELETE FROM `TB_TIPO_DEBITO`;
-		ALTER TABLE `TB_TIPO_DEBITO` AUTO_INCREMENT = 1;
+	ALTER TABLE `TB_TIPO_DEBITO` AUTO_INCREMENT = 1;
 
-		-- TB_EXAME
+	-- TB_REGISTRO_EXAME
+	DELETE FROM `TB_REGISTRO_EXAME`;
+	ALTER TABLE `TB_REGISTRO_EXAME` AUTO_INCREMENT = 1;
+
+	-- TB_MEDICO_ESPECIALIDADE
+	DELETE FROM `TB_MEDICO_ESPECIALIDADE`;
+	ALTER TABLE `TB_MEDICO_ESPECIALIDADE` AUTO_INCREMENT = 1;
+
+	-- TB_ESPECIALIDADE
+	DELETE FROM `TB_ESPECIALIDADE`;
+	ALTER TABLE `TB_ESPECIALIDADE` AUTO_INCREMENT = 1;
+
+	-- TB_MEDICO
+	DELETE FROM `TB_MEDICO`;
+	ALTER TABLE `TB_MEDICO` AUTO_INCREMENT = 1;
+
+	-- TB_EXAME
 	DELETE FROM `TB_EXAME`;
-		ALTER TABLE `TB_EXAME` AUTO_INCREMENT = 1;
+	ALTER TABLE `TB_EXAME` AUTO_INCREMENT = 1;
 
-		-- TB_PACIENTE
+	-- TB_PACIENTE
 	DELETE FROM `TB_PACIENTE`;
-		ALTER TABLE `TB_PACIENTE` AUTO_INCREMENT = 1;
+	ALTER TABLE `TB_PACIENTE` AUTO_INCREMENT = 1;
 
-		-- TB_CONVENIO
+	-- TB_CONVENIO
 	DELETE FROM `TB_CONVENIO`;
-		ALTER TABLE `TB_CONVENIO` AUTO_INCREMENT = 1;
+	ALTER TABLE `TB_CONVENIO` AUTO_INCREMENT = 1;
 
-		SET `SQL_SAFE_UPDATES` = 1;
-END//
+	SET `SQL_SAFE_UPDATES` = 1;
+END$$
 
 DELIMITER ;
 
 -- insert_test_data
 DROP PROCEDURE IF EXISTS `insert_test_data`;
 
-DELIMITER //
+DELIMITER $$
 
-CREATE PROCEDURE `insert_test_data` ()
+CREATE PROCEDURE `insert_test_data`()
 
 BEGIN
-		-- TB_PACIENTE
+	-- TB_PACIENTE
 	INSERT INTO `TB_PACIENTE`
 	(`nome`,`cpf`,`dt_nascimento`,`email`,`telefone`)
 	VALUES
@@ -225,8 +232,8 @@ BEGIN
 	('Luiza Letícia Souza','30506005356',STR_TO_DATE('22-02-1956','%d-%m-%Y'),'luiza_leticia_souza@publifix.com.br','85982946300'),
 	('Thiago Manoel Oliver Barbosa', '73141289441',STR_TO_DATE('09-03-1993','%d-%m-%Y'),'thiago_manoel_barbosa@centerdiesel.com.br','35984057475');
 
-		-- TB_ESPECIALIDADE
-		INSERT INTO `TB_ESPECIALIDADE`
+	-- TB_ESPECIALIDADE
+	INSERT INTO `TB_ESPECIALIDADE`
 	(`nome`)
 	VALUES
 	('Cardiologia'),
@@ -239,8 +246,8 @@ BEGIN
 	('Oftalmologia'),
 	('Pediatria');
 
-		-- TB_CONVENIO
-		INSERT INTO `TB_CONVENIO`
+	-- TB_CONVENIO
+	INSERT INTO `TB_CONVENIO`
 	(`nome`,`cnpj`,`taxa_coparticipacao`)
 	VALUES
 	('Amil', '07517040000154', 0.25),
@@ -250,15 +257,15 @@ BEGIN
 	('Sulamerica', '21503041000170', 0.65),
 	('PagBank', '12260171000139', 0.355);
 
-		-- TB_TIPO_DEBITO
-		INSERT INTO `TB_TIPO_DEBITO`
+	-- TB_TIPO_DEBITO
+	INSERT INTO `TB_TIPO_DEBITO`
 	(`nome`)
 	VALUES
 	('Pessoa Física'),
 	('Convenio');
 
-		-- TB_MEDICO
-		INSERT INTO `TB_MEDICO`
+	-- TB_MEDICO
+	INSERT INTO `TB_MEDICO`
 	(`nome`,`crm`,`email`,`telefone`)
 	VALUES
 	("Eduardo Lucas Nunes","10413-PA","eduardo-nunes90@distribuidorapetfarm.com.br","68999159147"),
@@ -272,29 +279,29 @@ BEGIN
 	("Isabelle Rafaela Antônia Nogueira","2702-AC","isabelle_nogueira@iesa.com.br","84989774817"),
 	("Ayla Stella Alícia Araújo","41090-RS","ayla.stella.araujo@mega-vale.com","83985329663");
 
-		-- TB_MEDICO_ESPECIALIDADE
-		INSERT INTO `TB_MEDICO_ESPECIALIDADE`
-		(`id_medico`,`id_especialidade`)
-		VALUES
-		(1,1),
-		(1,2),
-		(2,4),
-		(3,5),
-		(4,5),
-		(4,6),
-		(5,5),
-		(5,7),
-		(6,8),
-		(7,9),
-		(7,2),
-		(8,4),
-		(8,7),
-		(9,1),
-		(9,5),
-		(9,3);
+	-- TB_MEDICO_ESPECIALIDADE
+	INSERT INTO `TB_MEDICO_ESPECIALIDADE`
+	(`id_medico`,`id_especialidade`)
+	VALUES
+	(1,1),
+	(1,2),
+	(2,4),
+	(3,5),
+	(4,5),
+	(4,6),
+	(5,5),
+	(5,7),
+	(6,8),
+	(7,9),
+	(7,2),
+	(8,4),
+	(8,7),
+	(9,1),
+	(9,5),
+	(9,3);
 
-		-- TB_EXAME
-		INSERT INTO `TB_EXAME`
+	-- TB_EXAME
+	INSERT INTO `TB_EXAME`
 	(`nome`,`valor`)
 	VALUES
 	('Hemograma', 210.00),
@@ -311,8 +318,8 @@ BEGIN
 	('Ecocardiograma', 212.89),
 	('Espirometria', 600.00);
 
-		-- TB_REGISTRO_EXAME
-		INSERT INTO `TB_REGISTRO_EXAME`
+	-- TB_REGISTRO_EXAME
+	INSERT INTO `TB_REGISTRO_EXAME`
 	(`id_paciente`,`id_exame`,`id_medico`,`id_convenio`,`dthora_realizacao`)
 	VALUES
 	(1,1,3,null,STR_TO_DATE('20/03/2020 10:00','%d/%m/%Y %H:%i')),
@@ -355,7 +362,7 @@ BEGIN
 	(14,10,10,null,STR_TO_DATE('12/07/2021 14:00','%d/%m/%Y %H:%i')),
 	(15,13,1,5,STR_TO_DATE('13/08/2021 17:00','%d/%m/%Y %H:%i')),
 	(16,5,2,null,STR_TO_DATE('16/10/2021 18:00','%d/%m/%Y %H:%i'));
-END//
+END$$
 
 DELIMITER ;
 
@@ -366,34 +373,34 @@ DELIMITER ;
 -- tg_ai_insert_debito
 DROP TRIGGER IF EXISTS `tg_ai_insert_debito`;
 
-DELIMITER //
+DELIMITER $$
 
 CREATE TRIGGER `tg_ai_insert_debito`
-		AFTER INSERT
-		ON `TB_REGISTRO_EXAME` FOR EACH ROW
-		BEGIN
-			DECLARE valor DECIMAL(10,2);
-						DECLARE coparticipacao DECIMAL (4,3);
+AFTER INSERT
+ON `TB_REGISTRO_EXAME` FOR EACH ROW
+BEGIN
+	DECLARE valor DECIMAL(10,2);
+	DECLARE coparticipacao DECIMAL (4,3);
 
-						SELECT ex.valor FROM TB_EXAME AS ex WHERE ex.id_exame = NEW.id_exame INTO valor;
-						SELECT cv.taxa_coparticipacao FROM TB_CONVENIO AS cv WHERE cv.id_convenio = NEW.id_convenio INTO coparticipacao;
+	SELECT ex.valor FROM TB_EXAME AS ex WHERE ex.id_exame = NEW.id_exame INTO valor;
+	SELECT cv.taxa_coparticipacao FROM TB_CONVENIO AS cv WHERE cv.id_convenio = NEW.id_convenio INTO coparticipacao;
 
-			IF NEW.id_convenio IS NULL THEN
-				INSERT INTO `TB_DEBITO`
-								(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
-								VALUES
-								(1,NEW.id_registro,valor, NOW(), null);
-			ELSE
-				INSERT INTO `TB_DEBITO`
-								(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
-								VALUES
-								(1,NEW.id_registro,(valor * coparticipacao), NOW(), null);
+	IF NEW.id_convenio IS NULL THEN
+		INSERT INTO `TB_DEBITO`
+		(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
+		VALUES
+		(1,NEW.id_registro,valor, NOW(), null);
+	ELSE
+		INSERT INTO `TB_DEBITO`
+		(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
+		VALUES
+		(1,NEW.id_registro,(valor * coparticipacao), NOW(), null);
 
-								INSERT INTO `TB_DEBITO`
-								(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
-								VALUES
-								(2,NEW.id_registro,(valor * (1-coparticipacao)), NOW(), null);
-						END IF;
-				END//
+		INSERT INTO `TB_DEBITO`
+		(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
+		VALUES
+		(2,NEW.id_registro,(valor * (1-coparticipacao)), NOW(), null);
+	END IF;
+END$$
 
 DELIMITER ;

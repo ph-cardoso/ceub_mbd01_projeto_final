@@ -27,9 +27,26 @@ CREATE TABLE IF NOT EXISTS `TB_PACIENTE` (
 	`nome` VARCHAR(50) NOT NULL,
 	`telefone` VARCHAR(11) NOT NULL,
 	`email` VARCHAR(50) NOT NULL,
-	`dt_nascimento` DATE NULL,
+	`dt_nascimento` DATE NOT NULL,
 	PRIMARY KEY (`id_paciente`),
 	UNIQUE KEY `cpf_UNIQUE` (`cpf`)
+);
+
+-- TB_LOG_PACIENTE
+DROP TABLE IF EXISTS `TB_LOG_PACIENTE`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_PACIENTE` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_paciente` INT NOT NULL,
+	`cpf` VARCHAR(11) NOT NULL,
+	`nome` VARCHAR(50) NOT NULL,
+	`telefone` VARCHAR(11) NOT NULL,
+	`email` VARCHAR(50) NOT NULL,
+	`dt_nascimento` DATE NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
 );
 
 -- TB_CONVENIO
@@ -44,6 +61,21 @@ CREATE TABLE IF NOT EXISTS `TB_CONVENIO` (
 	UNIQUE KEY `cnpj_UNIQUE` (`cnpj`)
 );
 
+-- TB_LOG_CONVENIO
+DROP TABLE IF EXISTS `TB_LOG_CONVENIO`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_CONVENIO` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_convenio` INT NOT NULL,
+	`nome` VARCHAR(50) NOT NULL,
+	`cnpj` VARCHAR(45) NOT NULL,
+	`taxa_coparticipacao` DECIMAL(4,3) NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
+);
+
 -- TB_EXAME
 DROP TABLE IF EXISTS `TB_EXAME`;
 
@@ -53,6 +85,21 @@ CREATE TABLE IF NOT EXISTS `TB_EXAME` (
 	`descricao` VARCHAR(1000) NULL,
 	`valor` DECIMAL(10,2) NOT NULL,
 	PRIMARY KEY (`id_exame`)
+);
+
+-- TB_LOG_EXAME
+DROP TABLE IF EXISTS `TB_LOG_EXAME`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_EXAME` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_exame` INT NOT NULL,
+	`nome` VARCHAR(50) NOT NULL,
+	`descricao` VARCHAR(1000) NULL,
+	`valor` DECIMAL(10,2) NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
 );
 
 -- TB_MEDICO
@@ -68,6 +115,22 @@ CREATE TABLE IF NOT EXISTS `TB_MEDICO` (
 	UNIQUE KEY `crm_UNIQUE` (`crm`)
 );
 
+-- TB_LOG_MEDICO
+DROP TABLE IF EXISTS `TB_LOG_MEDICO`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_MEDICO` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_medico` INT NOT NULL,
+	`nome` VARCHAR(50) NOT NULL,
+	`crm` VARCHAR(9) NOT NULL,
+	`telefone` VARCHAR(11) NOT NULL,
+	`email` VARCHAR(50) NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
+);
+
 -- TB_REGISTRO_EXAME
 DROP TABLE IF EXISTS `TB_REGISTRO_EXAME`;
 
@@ -81,6 +144,23 @@ CREATE TABLE IF NOT EXISTS `TB_REGISTRO_EXAME` (
 	PRIMARY KEY (`id_registro`)
 );
 
+-- TB_LOG_REGISTRO_EXAME
+DROP TABLE IF EXISTS `TB_LOG_REGISTRO_EXAME`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_REGISTRO_EXAME` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_registro` INT NOT NULL,
+	`id_paciente` INT NOT NULL,
+	`id_exame` INT NOT NULL,
+	`id_medico` INT NOT NULL,
+	`id_convenio` INT,
+	`dthora_realizacao` DATETIME NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
+);
+
 -- TB_ESPECIALIDADE
 DROP TABLE IF EXISTS `TB_ESPECIALIDADE`;
 
@@ -88,6 +168,19 @@ CREATE TABLE IF NOT EXISTS `TB_ESPECIALIDADE` (
 	`id_especialidade` INT NOT NULL AUTO_INCREMENT,
 	`nome` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (`id_especialidade`)
+);
+
+-- TB_LOG_ESPECIALIDADE
+DROP TABLE IF EXISTS `TB_LOG_ESPECIALIDADE`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_ESPECIALIDADE` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_especialidade` INT NOT NULL,
+	`nome` VARCHAR(50) NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
 );
 
 -- TB_MEDICO_ESPECIALIDADE
@@ -100,6 +193,21 @@ CREATE TABLE IF NOT EXISTS `TB_MEDICO_ESPECIALIDADE` (
 	PRIMARY KEY (`id`)
 );
 
+-- TB_LOG_MEDICO_ESPECIALIDADE
+DROP TABLE IF EXISTS `TB_LOG_MEDICO_ESPECIALIDADE`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_MEDICO_ESPECIALIDADE` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id` INT NOT NULL,
+	`id_medico` INT NOT NULL,
+	`id_especialidade` INT NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
+);
+
+
 -- TB_TIPO_DEBITO
 DROP TABLE IF EXISTS `TB_TIPO_DEBITO`;
 
@@ -107,6 +215,19 @@ CREATE TABLE IF NOT EXISTS `TB_TIPO_DEBITO` (
 	`id_tipo` INT NOT NULL AUTO_INCREMENT,
 	`nome` VARCHAR(20) NOT NULL,
 	PRIMARY KEY (`id_tipo`)
+);
+
+-- TB_LOG_TIPO_DEBITO
+DROP TABLE IF EXISTS `TB_LOG_TIPO_DEBITO`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_TIPO_DEBITO` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_tipo` INT NOT NULL,
+	`nome` VARCHAR(20) NOT NULL,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
 );
 
 -- TB_DEBITO
@@ -120,6 +241,23 @@ CREATE TABLE IF NOT EXISTS `TB_DEBITO` (
 	`dthora_registro` DATETIME NOT NULL,
 	`dthora_pagamento` DATETIME,
 	PRIMARY KEY (`id_debito`)
+);
+
+-- TB_LOG_DEBITO
+DROP TABLE IF EXISTS `TB_LOG_DEBITO`;
+
+CREATE TABLE IF NOT EXISTS `TB_LOG_DEBITO` (
+	`id_log` INT NOT NULL AUTO_INCREMENT,
+	`id_debito` INT NOT NULL,
+	`id_tipo` INT NOT NULL,
+	`id_registro` INT NOT NULL,
+	`valor` DECIMAL(10,2) NOT NULL,
+	`dthora_registro` DATETIME NOT NULL,
+	`dthora_pagamento` DATETIME,
+    `tipo_operacao` VARCHAR(10) NOT NULL,
+    `dthora_operacao` DATETIME NOT NULL,
+    `usr_operacao` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_log`)
 );
 
 -- -----------------------------------------------------------------------------------------------------------------
@@ -193,6 +331,42 @@ BEGIN
 	-- TB_CONVENIO
 	DELETE FROM `TB_CONVENIO`;
 	ALTER TABLE `TB_CONVENIO` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_CONVENIO
+	DELETE FROM `TB_LOG_CONVENIO`;
+	ALTER TABLE `TB_LOG_CONVENIO` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_DEBITO
+	DELETE FROM `TB_LOG_DEBITO`;
+	ALTER TABLE `TB_LOG_DEBITO` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_ESPECIALIDADE
+	DELETE FROM `TB_LOG_ESPECIALIDADE`;
+	ALTER TABLE `TB_LOG_ESPECIALIDADE` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_EXAME
+	DELETE FROM `TB_LOG_EXAME`;
+	ALTER TABLE `TB_LOG_EXAME` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_MEDICO
+	DELETE FROM `TB_LOG_MEDICO`;
+	ALTER TABLE `TB_LOG_MEDICO` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_MEDICO_ESPECIALIDADE
+	DELETE FROM `TB_LOG_MEDICO_ESPECIALIDADE`;
+	ALTER TABLE `TB_LOG_MEDICO_ESPECIALIDADE` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_PACIENTE
+	DELETE FROM `TB_LOG_PACIENTE`;
+	ALTER TABLE `TB_LOG_PACIENTE` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_REGISTRO_EXAME
+	DELETE FROM `TB_LOG_REGISTRO_EXAME`;
+	ALTER TABLE `TB_LOG_REGISTRO_EXAME` AUTO_INCREMENT = 1;
+    
+	-- TB_LOG_TIPO_DEBITO
+	DELETE FROM `TB_LOG_TIPO_DEBITO`;
+	ALTER TABLE `TB_LOG_TIPO_DEBITO` AUTO_INCREMENT = 1;
 
 	SET `SQL_SAFE_UPDATES` = 1;
 END$$
@@ -370,12 +544,10 @@ DELIMITER ;
 -- ----------------------------------------- CRIAÇÃO DOS TRIGGERS --------------------------------------------------
 -- -----------------------------------------------------------------------------------------------------------------
 
--- tg_ai_insert_debito
-DROP TRIGGER IF EXISTS `tg_ai_insert_debito`;
-
 DELIMITER $$
 
-CREATE TRIGGER `tg_ai_insert_debito`
+-- TB_REGISTRO_EXAME
+CREATE TRIGGER `tg_ai_registro_exame`
 AFTER INSERT
 ON `TB_REGISTRO_EXAME` FOR EACH ROW
 BEGIN
@@ -389,18 +561,337 @@ BEGIN
 		INSERT INTO `TB_DEBITO`
 		(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
 		VALUES
-		(1,NEW.id_registro,valor, NOW(), null);
+		(1,NEW.id_registro,valor, now(), null);
 	ELSE
 		INSERT INTO `TB_DEBITO`
 		(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
 		VALUES
-		(1,NEW.id_registro,(valor * coparticipacao), NOW(), null);
+		(1,NEW.id_registro,(valor * coparticipacao), now(), null);
 
 		INSERT INTO `TB_DEBITO`
 		(`id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`)
 		VALUES
-		(2,NEW.id_registro,(valor * (1-coparticipacao)), NOW(), null);
+		(2,NEW.id_registro,(valor * (1-coparticipacao)), now(), null);
 	END IF;
+    
+    INSERT INTO `TB_LOG_REGISTRO_EXAME`
+    (`id_registro`, `id_paciente`, `id_exame`, `id_medico`, `id_convenio`, `dthora_realizacao`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_registro, NEW.id_paciente, NEW.id_exame, NEW.id_medico, NEW.id_convenio, NEW.dthora_realizacao, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_registro_exame`
+BEFORE UPDATE
+ON `TB_REGISTRO_EXAME` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_REGISTRO_EXAME`
+    (`id_registro`, `id_paciente`, `id_exame`, `id_medico`, `id_convenio`, `dthora_realizacao`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_registro, OLD.id_paciente, OLD.id_exame, OLD.id_medico, OLD.id_convenio, OLD.dthora_realizacao, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_registro_exame`
+BEFORE DELETE
+ON `TB_REGISTRO_EXAME` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_REGISTRO_EXAME`
+    (`id_registro`, `id_paciente`, `id_exame`, `id_medico`, `id_convenio`, `dthora_realizacao`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_registro, OLD.id_paciente, OLD.id_exame, OLD.id_medico, OLD.id_convenio, OLD.dthora_realizacao, 'DELETE', now(), current_user());
+END$$
+
+-- TB_CONVENIO
+CREATE TRIGGER `tg_ai_convenio`
+AFTER INSERT
+ON `TB_CONVENIO` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_CONVENIO`
+    (`id_convenio`, `nome`, `cnpj`, `taxa_coparticipacao`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_convenio, NEW.nome, NEW.cnpj, NEW.taxa_coparticipacao, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_convenio`
+BEFORE UPDATE
+ON `TB_CONVENIO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_CONVENIO`
+    (`id_convenio`, `nome`, `cnpj`, `taxa_coparticipacao`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_convenio, OLD.nome, OLD.cnpj, OLD.taxa_coparticipacao, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_convenio`
+BEFORE DELETE
+ON `TB_CONVENIO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_CONVENIO`
+    (`id_convenio`, `nome`, `cnpj`, `taxa_coparticipacao`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_convenio, OLD.nome, OLD.cnpj, OLD.taxa_coparticipacao, 'DELETE', now(), current_user());
+END$$
+
+-- TB_DEBITO
+CREATE TRIGGER `tg_ai_debito`
+AFTER INSERT
+ON `TB_DEBITO` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_DEBITO`
+    (`id_debito`, `id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_debito, NEW.id_tipo, NEW.id_registro, NEW.valor, NEW.dthora_registro, NEW.dthora_pagamento, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_debito`
+BEFORE UPDATE
+ON `TB_DEBITO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_DEBITO`
+    (`id_debito`, `id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_debito, OLD.id_tipo, OLD.id_registro, OLD.valor, OLD.dthora_registro, OLD.dthora_pagamento, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_debito`
+BEFORE DELETE
+ON `TB_DEBITO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_DEBITO`
+    (`id_debito`, `id_tipo`, `id_registro`, `valor`, `dthora_registro`, `dthora_pagamento`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_debito, OLD.id_tipo, OLD.id_registro, OLD.valor, OLD.dthora_registro, OLD.dthora_pagamento, 'DELETE', now(), current_user());
+END$$
+
+-- TB_ESPECIALIDADE
+CREATE TRIGGER `tg_ai_especialidade`
+AFTER INSERT
+ON `TB_ESPECIALIDADE` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_ESPECIALIDADE`
+    (`id_especialidade`, `nome`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_especialidade, NEW.nome, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_especialidade`
+BEFORE UPDATE
+ON `TB_ESPECIALIDADE` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_ESPECIALIDADE`
+    (`id_especialidade`, `nome`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_especialidade, OLD.nome, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_especialidade`
+BEFORE DELETE
+ON `TB_ESPECIALIDADE` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_ESPECIALIDADE`
+    (`id_especialidade`, `nome`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_especialidade, OLD.nome, 'DELETE', now(), current_user());
+END$$
+
+-- TB_EXAME
+CREATE TRIGGER `tg_ai_exame`
+AFTER INSERT
+ON `TB_EXAME` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_EXAME`
+    (`id_exame`, `nome`, `descricao`, `valor`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_exame, NEW.nome, NEW.descricao, NEW.valor, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_exame`
+BEFORE UPDATE
+ON `TB_EXAME` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_EXAME`
+    (`id_exame`, `nome`, `descricao`, `valor`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_exame, OLD.nome, OLD.descricao, OLD.valor, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_exame`
+BEFORE DELETE
+ON `TB_EXAME` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_EXAME`
+    (`id_exame`, `nome`, `descricao`, `valor`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_exame, OLD.nome, OLD.descricao, OLD.valor, 'DELETE', now(), current_user());
+END$$
+
+-- TB_MEDICO
+CREATE TRIGGER `tg_ai_medico`
+AFTER INSERT
+ON `TB_MEDICO` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_MEDICO`
+    (`id_medico`, `nome`, `crm`, `telefone`, `email`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_medico, NEW.nome, NEW.crm, NEW.telefone, NEW.email, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_medico`
+BEFORE UPDATE
+ON `TB_MEDICO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_MEDICO`
+    (`id_medico`, `nome`, `crm`, `telefone`, `email`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_medico, OLD.nome, OLD.crm, OLD.telefone, OLD.email, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_medico`
+BEFORE DELETE
+ON `TB_MEDICO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_MEDICO`
+    (`id_medico`, `nome`, `crm`, `telefone`, `email`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_medico, OLD.nome, OLD.crm, OLD.telefone, OLD.email, 'DELETE', now(), current_user());
+END$$
+
+-- TB_MEDICO_ESPECIALIDADE
+CREATE TRIGGER `tg_ai_medico_especialidade`
+AFTER INSERT
+ON `TB_MEDICO_ESPECIALIDADE` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_MEDICO_ESPECIALIDADE`
+    (`id`, `id_medico`, `id_especialidade`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id, NEW.id_medico, NEW.id_especialidade, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_medico_especialidade`
+BEFORE UPDATE
+ON `TB_MEDICO_ESPECIALIDADE` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_MEDICO_ESPECIALIDADE`
+    (`id`, `id_medico`, `id_especialidade`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id, OLD.id_medico, OLD.id_especialidade, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_medico_especialidade`
+BEFORE DELETE
+ON `TB_MEDICO_ESPECIALIDADE` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_MEDICO_ESPECIALIDADE`
+    (`id`, `id_medico`, `id_especialidade`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id, OLD.id_medico, OLD.id_especialidade, 'DELETE', now(), current_user());
+END$$
+
+-- TB_PACIENTE
+CREATE TRIGGER `tg_ai_paciente`
+AFTER INSERT
+ON `TB_PACIENTE` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_PACIENTE`
+    (`id_paciente`, `cpf`, `nome`, `telefone`, `email`, `dt_nascimento`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_paciente, NEW.cpf, NEW.nome, NEW.telefone, NEW.email, NEW.dt_nascimento, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_paciente`
+BEFORE UPDATE
+ON `TB_PACIENTE` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_PACIENTE`
+    (`id_paciente`, `cpf`, `nome`, `telefone`, `email`, `dt_nascimento`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_paciente, OLD.cpf, OLD.nome, OLD.telefone, OLD.email, OLD.dt_nascimento, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_paciente`
+BEFORE DELETE
+ON `TB_PACIENTE` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_PACIENTE`
+    (`id_paciente`, `cpf`, `nome`, `telefone`, `email`, `dt_nascimento`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_paciente, OLD.cpf, OLD.nome, OLD.telefone, OLD.email, OLD.dt_nascimento, 'DELETE', now(), current_user());
+END$$
+
+-- TB_TIPO_DEBITO
+CREATE TRIGGER `tg_ai_tipo_debito`
+AFTER INSERT
+ON `TB_TIPO_DEBITO` FOR EACH ROW
+BEGIN    
+    INSERT INTO `TB_LOG_TIPO_DEBITO`
+    (`id_tipo`, `nome`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (NEW.id_tipo, NEW.nome, 'INSERT', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bu_tipo_debito`
+BEFORE UPDATE
+ON `TB_TIPO_DEBITO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_TIPO_DEBITO`
+    (`id_tipo`, `nome`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_tipo, OLD.nome, 'UPDATE', now(), current_user());
+END$$
+
+CREATE TRIGGER `tg_bd_tipo_debito`
+BEFORE DELETE
+ON `TB_TIPO_DEBITO` FOR EACH ROW
+BEGIN
+    INSERT INTO `TB_LOG_TIPO_DEBITO`
+    (`id_tipo`, `nome`, `tipo_operacao`, `dthora_operacao`, `usr_operacao`)
+    VALUES
+    (OLD.id_tipo, OLD.nome, 'DELETE', now(), current_user());
 END$$
 
 DELIMITER ;
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------ CRIAÇÃO DAS VIEWS ----------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------
+
+CREATE VIEW `cobranca` (
+	`id_debito`,
+    `id_tipo`,
+    `id_registro`,
+    `valor`,
+    `dthora_registro`,
+    `dthora_pagamento`
+) AS SELECT * FROM `TB_DEBITO` WHERE dthora_pagamento IS NULL;
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- ----------------------------------------- CRIAÇÃO DOS USUARIOS --------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------
+
+DROP USER IF EXISTS 'recepcionista'@'localhost';
+
+CREATE USER 'recepcionista'@'localhost' IDENTIFIED BY 'Recepcionista@123';
+
+DROP USER IF EXISTS 'medico'@'localhost';
+
+CREATE USER 'medico'@'localhost' IDENTIFIED BY 'Medico@123';
+
+DROP USER IF EXISTS 'admin'@'localhost';
+
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'Admin@123';
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- ----------------------------------------- GRANTS DOS USUARIOS ---------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------
+
+GRANT SELECT ON clinica_laboratorial.TB_CONVENIO TO 'recepcionista'@'localhost';
+GRANT SELECT ON clinica_laboratorial.TB_DEBITO TO 'recepcionista'@'localhost';
+GRANT SELECT ON clinica_laboratorial.TB_EXAME TO 'recepcionista'@'localhost';
+GRANT SELECT ON clinica_laboratorial.TB_REGISTRO_EXAME TO 'recepcionista'@'localhost';
+GRANT SELECT ON clinica_laboratorial.TB_PACIENTE TO 'recepcionista'@'localhost';
+
+
+GRANT SELECT ON clinica_laboratorial.TB_EXAME TO 'medico'@'localhost';
+GRANT SELECT ON clinica_laboratorial.TB_REGISTRO_EXAME TO 'medico'@'localhost';
+GRANT SELECT ON clinica_laboratorial.TB_PACIENTE TO 'medico'@'localhost';
+
+GRANT ALL PRIVILEGES ON clinica_laboratorial.* TO 'admin'@'localhost' WITH GRANT OPTION;
